@@ -1,0 +1,50 @@
+[2026-11-03 14:53:00] SER - inicializacao com diagnostico
+[2026-11-03 14:53:00] Python 3.15 encontrado: C:\Users\BANDEIRA TRIBUZZI.DESKTOP-F4Q1CHK\AppData\Local\Programs\Python\Python315\python.exe
+[2026-11-03 14:53:00] Criando ambiente Python local .venv
+[2026-11-03 14:53:09] Bibliotecas ausentes ou desatualizadas. Preparando dependencias.
+[2026-11-03 14:53:09] Instalando bibliotecas (Internet necessaria na primeira vez)
+[2026-11-03 14:53:51] Iniciando configuracao administrativa / banco local
+[2026-11-03 14:53:51] Verificando administrador inicial
+[2026-11-03 14:54:29] ERRO: Verificando administrador inicial falhou (codigo 1). Veja a mensagem anterior.
+[2026-11-03 14:54:29] O ERRO acima foi registrado em SER_ERRO_INICIALIZACAO.log.
+[2026-11-03 14:54:46] SER - inicializacao com diagnostico
+[2026-11-03 14:54:46] Banco existente identificado em instance. Nao sera apagado.
+[2026-11-03 14:54:46] Ambiente virtual Python 3.15 compativel encontrado.
+[2026-11-03 14:54:48] Bibliotecas do SER verificadas.
+[2026-11-03 14:54:48] Iniciando configuracao administrativa / banco local
+[2026-11-03 14:54:48] Verificando administrador inicial
+[2026-11-03 14:55:11] ERRO: Verificando administrador inicial falhou (codigo 1). Veja a mensagem anterior.
+[2026-11-03 14:55:12] O ERRO acima foi registrado em SER_ERRO_INICIALIZACAO.log.
+[2026-11-03 14:55:19] SER - inicializacao com diagnostico
+[2026-11-03 14:55:19] Banco existente identificado em instance. Nao sera apagado.
+[2026-11-03 14:55:19] Ambiente virtual Python 3.15 compativel encontrado.
+[2026-11-03 14:55:21] Bibliotecas do SER verificadas.
+[2026-11-03 14:55:21] Iniciando configuracao administrativa / banco local
+[2026-11-03 14:55:21] Verificando administrador inicial
+[2026-11-03 14:55:31] ERRO: Verificando administrador inicial falhou (codigo 3221225786). Veja a mensagem anterior.
+[2026-11-03 14:55:35] SER - inicializacao com diagnostico
+[2026-11-03 14:55:35] Banco existente identificado em instance. Nao sera apagado.
+[2026-11-03 14:55:35] Ambiente virtual Python 3.15 compativel encontrado.
+[2026-11-03 14:55:36] Bibliotecas do SER verificadas.
+[2026-11-03 14:55:36] Iniciando configuracao administrativa / banco local
+[2026-11-03 14:55:36] Verificando administrador inicial
+[2026-11-03 14:56:29] ERRO: Verificando administrador inicial falhou (codigo 1). Veja a mensagem anterior.
+[2026-11-03 14:56:29] O ERRO acima foi registrado em SER_ERRO_INICIALIZACAO.log.
+[2026-11-03 14:56:37] SER - inicializacao com diagnostico
+[2026-11-03 14:56:37] Banco existente identificado em instance. Nao sera apagado.
+[2026-11-03 14:56:37] Ambiente virtual Python 3.15 compativel encontrado.
+[2026-11-03 14:56:38] Bibliotecas do SER verificadas.
+[2026-11-03 14:56:38] Iniciando configuracao administrativa / banco local
+[2026-11-03 14:56:38] Verificando administrador inicial
+[2026-11-03 14:57:11] ERRO: Verificando administrador inicial falhou (codigo 1). Veja a mensagem anterior.
+[2026-11-03 14:57:11] O ERRO acima foi registrado em SER_ERRO_INICIALIZACAO.log.
+[2026-11-03 14:57:27] SER - inicializacao com diagnostico
+[2026-11-03 14:57:27] Banco existente identificado em instance. Nao sera apagado.
+[2026-11-03 14:57:27] Ambiente virtual Python 3.15 compativel encontrado.
+[2026-11-03 14:57:28] Bibliotecas do SER verificadas.
+[2026-11-03 14:57:28] Iniciando configuracao administrativa / banco local
+[2026-11-03 14:57:28] Verificando administrador inicial
+[2026-11-03 14:58:05] Abrindo o SER pelo navegador. Aguarde o link na tela.
+[2026-11-03 14:58:05] Servidor SER ativo; feche a janela para encerrar
+[2026-11-03 15:02:14] ERRO: 
+[2026-11-03 15:02:15] O ERRO acima foi registrado em SER_ERRO_INICIALIZACAO.log.

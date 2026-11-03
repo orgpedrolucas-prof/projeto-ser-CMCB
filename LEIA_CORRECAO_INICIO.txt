@@ -1,0 +1,24 @@
+# SER — Correcao da tela que pisca e fecha
+
+Esta versao mantem o SER 5.0 e usa o mesmo banco SQLite, a mesma interface, auditoria, alunos, turmas, simulados, vistorias, ocorrencias e relatorios. O unico ajuste no sistema e a rotina de inicializacao e seu diagnostico.
+
+## Para utilizar a versao completa
+1. Extraia o ZIP inteiro para uma pasta comum, por exemplo Documentos\SER.
+2. Com Python 3.15.2 (64 bits) instalado, execute INICIAR_WINDOWS.bat.
+3. A janela mostrara o andamento. Na primeira vez, bibliotecas podem precisar de Internet.
+4. O navegador sera aberto automaticamente assim que o servidor estiver pronto.
+5. Se ocorrer erro, a janela nao deve sumir: veja o texto e o arquivo SER_ERRO_INICIALIZACAO.log.
+
+## Para corrigir sua instalacao atual SEM perder dados
+1. Feche o SER; faca uma copia de seguranca da pasta inteira.
+2. Extraia o ZIP de correcao SOMENTE INICIO na pasta da instalacao existente.
+3. Substitua INICIAR_WINDOWS.bat; mantenha a pasta tools/iniciar_ser_seguro.py no subdiretorio indicado.
+4. NAO substitua, renomeie ou apague a pasta instance, nem copie banco vazio sobre ela.
+5. Execute INICIAR_WINDOWS.bat. Se houver erro, use DIAGNOSTICAR_INICIO_SER.bat.
+
+## Observacoes
+- A inicializacao procura Python 3.15.2 (ou manutencao posterior da serie 3.15), 64 bits.
+- Quando .venv estiver desatualizada, ela sera apenas RENOMEADA para .venv_anterior_... antes de criar o ambiente atualizado; o banco instance fica intacto.
+- Se a porta 8000 estiver ocupada, ser_web.py tenta as portas 8001 a 8010.
+- Os dados do sistema ficam na pasta instance. Nao compartilhe logs ou bancos contendo informacoes de estudantes sem verificar privacidade.
+- Nao foi possivel executar o arquivo BAT em um Windows real neste ambiente; a nova inicializacao foi preparada para sempre mostrar diagnostico na tela e registrar falhas.
