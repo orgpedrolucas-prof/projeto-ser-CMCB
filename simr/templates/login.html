@@ -1,0 +1,22 @@
+{% extends 'base.html' %}{% block title %}Entrar{% endblock %}{% block content %}
+<div class="login-container">
+  <div class="login-hero">
+    <div class="hero-banner"><img src="/static/brasao_cmcb_lxi.webp" alt="Brasão do CMCB - Bandeira Tribuzzi"><span>CMCB · Unidade LXI<br><strong>Bandeira Tribuzzi</strong></span></div>
+    <div class="eyebrow">PLATAFORMA DE GESTÃO INSTITUCIONAL</div>
+    <h1>Conhecimento.<br><span>Disciplina.</span><br>Mérito.</h1>
+    <p>Dados confiáveis, acompanhamento pedagógico e decisões orientadas por indicadores.</p>
+    <div class="hero-footer">SER • SISTEMA ESCOLAR DE RESULTADOS</div>
+  </div>
+  <div class="login-side"><div class="login-box">
+    <div class="login-symbol">SER<span> / ACESSO</span></div>
+    <div class="eyebrow">ÁREA RESTRITA</div><h2>Bem-vindo ao SER</h2><p>Use suas credenciais institucionais para continuar.</p>
+    <form method="post" action="/entrar" class="stack"><input type="hidden" name="_csrf" value="{{csrf}}">
+      <label>Usuário<input name="username" autocomplete="username" required autofocus placeholder="Informe seu usuário"></label>
+      <label>Senha<input name="password" type="password" autocomplete="current-password" required placeholder="Sua senha de acesso"></label>
+      <button type="submit" class="button primary full">Entrar no sistema <span aria-hidden="true">→</span></button>
+    </form>
+    <div class="login-security"><svg><use href="/static/icons.svg#shield"/></svg><span>Ambiente institucional com trilha de auditoria e permissões.</span></div>
+    <p class="muted footnote">Sem cadastro público. Os usuários são gerenciados pela administração.</p>
+  </div></div>
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="same-origin">
+  <meta name="theme-color" content="#0b2340">
+  <title>{% block title %}SER{% endblock %} · SER</title>
+  <link rel="icon" href="/static/brasao_cmcb_lxi.webp" type="image/webp">
+  <link rel="stylesheet" href="/static/style.css?v=5.0">
+</head>
+<body class="{% if user %}authenticated{% else %}guest{% endif %}">
+{% if user %}
+  {% set path = request.url.path %}
+  <aside class="sidebar" id="main-sidebar" aria-label="Navegação principal">
+    <a class="logo" href="/" aria-label="SER — Página inicial">
+      <img class="logo-crest" src="/static/brasao_cmcb_lxi.webp" alt="Brasão do CMCB Maranhão — Unidade LXI Bandeira Tribuzzi">
+      <span class="logo-caption"><strong>SER</strong><small>CMCB · UNIDADE LXI<br>BANDEIRA TRIBUZZI</small></span>
+    </a>
+    <div class="sidebar-label">GESTÃO INSTITUCIONAL</div>
+    <nav>
+      <a class="navlink {{'current' if path=='/' else ''}}" href="/" {% if path=='/' %}aria-current="page"{% endif %}><svg><use href="/static/icons.svg#dashboard"/></svg> Painel</a>
+      {% if user.role in ['admin','militar','pedagogia','professor'] %}<a class="navlink {{'current' if path.startswith('/alunos') else ''}}" href="/alunos"><svg><use href="/static/icons.svg#users"/></svg> Alunos</a>{% endif %}
+      <a class="navlink {{'current' if path.startswith('/turmas') else ''}}" href="/turmas"><svg><use href="/static/icons.svg#graduation"/></svg> Turmas</a>
+      <a class="navlink {{'current' if path.startswith('/simulados') else ''}}" href="/simulados"><svg><use href="/static/icons.svg#document"/></svg> Simulados</a>
+      {% if user.role in ['admin','militar','pedagogia','monitor'] %}<a class="navlink {{'current' if path.startswith('/vistorias') else ''}}" href="/vistorias"><svg><use href="/static/icons.svg#clipboard"/></svg> Vistorias</a>{% endif %}
+      {% if user.role in ['admin','militar'] %}<a class="navlink {{'current' if path.startswith('/ocorrencias') else ''}}" href="/ocorrencias"><svg><use href="/static/icons.svg#alert"/></svg> Ocorrências</a>{% endif %}
+      {% if user.role in ['admin','militar','pedagogia'] %}<a class="navlink {{'current' if path.startswith('/evolucao') else ''}}" href="/evolucao"><svg><use href="/static/icons.svg#trend"/></svg> Evolução coletiva</a>{% endif %}
+      <a class="navlink {{'current' if path.startswith('/ranking') else ''}}" href="/ranking"><svg><use href="/static/icons.svg#trophy"/></svg> Rankings</a>
+      {% if user.role in ['admin','militar','pedagogia'] %}<a class="navlink {{'current' if path.startswith('/pelotao') else ''}}" href="/pelotao"><svg><use href="/static/icons.svg#shield"/></svg> Pelotão de Elite</a>{% endif %}
+      {% if user.role in ['admin','militar','pedagogia','professor'] %}<a class="navlink {{'current' if path.startswith('/planos') else ''}}" href="/planos"><svg><use href="/static/icons.svg#target"/></svg> Planos de melhoria</a>{% endif %}
+      <a class="navlink {{'current' if path.startswith('/relatorios') else ''}}" href="/relatorios"><svg><use href="/static/icons.svg#chart"/></svg> Relatórios</a>
+      {% if user.role in ['admin','militar','pedagogia'] %}<a class="navlink {{'current' if path.startswith('/assembleias') else ''}}" href="/assembleias"><svg><use href="/static/icons.svg#calendar"/></svg> Assembleias</a>{% endif %}
+      {% if user.role=='admin' %}
+      <div class="sidebar-label sidebar-label-inner">ADMINISTRAÇÃO</div>
+      <a class="navlink {{'current' if path.startswith('/usuarios') else ''}}" href="/usuarios"><svg><use href="/static/icons.svg#user-gear"/></svg> Usuários</a>
+      <div class="nav-group {{'nav-group-active' if path.startswith('/auditoria') or path.startswith('/administracao') else ''}}">
+        <span class="nav-group-head"><svg><use href="/static/icons.svg#shield"/></svg> Auditoria <span class="nav-group-arrow">⌄</span></span>
+        <a class="nav-sub {{'current' if path=='/auditoria' else ''}}" href="/auditoria">Logs de auditoria</a>
+        <a class="nav-sub {{'current' if path.startswith('/auditoria/arquivados') or path.startswith('/administracao') else ''}}" href="/auditoria/arquivados?estado=arquivados">Gerenciamento de Arquivados</a>
+      </div>
+      {% endif %}
+    </nav>
+    <div class="sidebar-bottom"><span class="sidebar-redline"></span><strong>CONHECIMENTO · DISCIPLINA</strong><small>MÉRITO · EXCELÊNCIA</small></div>
+  </aside>
+  <div class="sidebar-backdrop" data-close-menu></div>
+{% endif %}
+<div class="page {% if not user %}page-guest{% endif %}">
+{% if user %}
+  <header class="topbar">
+    <div class="topbar-heading"><button class="mobile-menu" type="button" data-open-menu aria-controls="main-sidebar" aria-expanded="false" aria-label="Abrir navegação"><svg><use href="/static/icons.svg#menu"/></svg></button>
+      <div class="topbar-title"><span class="topbar-brand">SER</span><span class="topbar-vertical"></span><div><strong>Sistema Escolar de Resultados</strong><small>Conhecimento • Disciplina • Mérito • Excelência</small></div></div>
+    </div>
+    <div class="account"><span class="account-avatar">{{user.full_name[0]|upper}}</span><span class="account-name"><strong>{{user.full_name}}</strong><small>{{ roles[user.role] }}</small></span><form method="post" action="/sair"><input type="hidden" name="_csrf" value="{{csrf}}"><button class="text-button" type="submit" title="Encerrar sessão">Sair <svg><use href="/static/icons.svg#logout"/></svg></button></form></div>
+  </header>
+{% endif %}
+<main class="main-content">
+  {% if user %}<div class="breadcrumb"><svg><use href="/static/icons.svg#home"/></svg><span>SER</span><span class="breadcrumb-sep">/</span><strong>{% block section %}Gestão de resultados{% endblock %}</strong></div>{% endif %}
+  {% if notice %}<div class="notice" role="status">{{notice}}</div>{% endif %}
+  {% block content %}{% endblock %}
+</main>
+<footer class="footer"><span>© SER · CMCB Unidade LXI Bandeira Tribuzzi</span><span>Uso institucional • Acesso controlado • Versão 5.0</span></footer>
+</div>
+<script src="/static/app.js?v=5.0" defer></script>
+</body>
+</html>

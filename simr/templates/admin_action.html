@@ -1,0 +1,10 @@
+{% macro control(entity, rid, csrf, deleted_at=None) %}
+<details class="details"><summary>{{'Restaurar registro' if deleted_at else 'Excluir (arquivar)'}}</summary>
+<form method="post" class="stack compact" action="/administracao/{{entity}}/{{rid}}/{{'restaurar' if deleted_at else 'arquivar'}}"
+ onsubmit="return confirm('Confirmar {{'restauração' if deleted_at else 'arquivamento'}} com auditoria?')">
+<input type="hidden" name="_csrf" value="{{csrf}}">
+<label>Justificativa (mínimo 10 caracteres)<textarea name="justification" minlength="10" required rows="2"></textarea></label>
+<label>Confirme a senha do administrador<input type="password" name="admin_password" required autocomplete="new-password"></label>
+<button class="button small {{'primary' if deleted_at else 'secondary'}}">{{'Restaurar' if deleted_at else 'Arquivar'}}</button>
+</form></details>
+{% endmacro %}

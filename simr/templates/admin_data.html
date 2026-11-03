@@ -1,0 +1,37 @@
+{% extends 'base.html' %}{% from 'admin_action.html' import control %}
+{% block title %}Gerenciamento de Arquivados{% endblock %}{% block section %}Auditoria / Gerenciamento de Arquivados{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">AUDITORIA · GESTÃO DE REGISTROS</div><h1>Gerenciamento de Arquivados</h1><p>Consulte registros ativos e arquivados no mesmo centro de administração. Itens arquivados não aparecem nas listas operacionais.</p></div><a href="/auditoria" class="button secondary">Ver logs de auditoria →</a></div>
+<div class="archive-overview">
+  <div><span class="archive-icon"><svg><use href="/static/icons.svg#shield"/></svg></span><div><strong>{{all_archived}}</strong><small>registros arquivados no sistema</small></div></div>
+  <p>Arquivamento reversível com senha, justificativa e trilha permanente de alterações. Nenhuma exclusão é física.</p>
+</div>
+<section class="panel archive-manager">
+  <div class="panel-head"><div><div class="eyebrow">CONSULTA CENTRALIZADA</div><h2>Registros por categoria</h2></div><span class="pill">Acesso de administrador</span></div>
+  <form class="archive-filter" action="/auditoria/arquivados" method="get">
+    <label>Categoria
+      <select name="tipo" id="archive-type" onchange="this.form.submit()">
+      {% for k,v in types.items() %}<option value="{{k}}" {% if entity==k %}selected{% endif %}>{{ {'classes':'Turmas','students':'Alunos','enrollments':'Matrículas','assessments':'Simulados','assessment_results':'Resultados de avaliações','inspections':'Vistorias','rubrics':'Fichas de evolução','evolution':'Evolução coletiva','plans':'Planos de melhoria','elite_evaluations':'Pelotão de Elite','decisions':'Assembleias','adjustments':'Ajustes de pontuação','occurrences':'Ocorrências','occurrence_actions':'Advertências e suspensões','occurrence_attachments':'Anexos de ocorrência','behavior_deductions':'Descontos individuais'}.get(k,k) }}</option>{% endfor %}
+      </select>
+    </label>
+    <input type="hidden" name="estado" value="{{status}}">
+    <noscript><button class="button primary">Filtrar</button></noscript>
+  </form>
+  <div class="archive-tabs" role="navigation" aria-label="Situação dos registros">
+    <a href="/auditoria/arquivados?tipo={{entity}}&estado=ativos" class="archive-tab {{'selected' if status=='ativos' else ''}}" {% if status=='ativos' %}aria-current="page"{% endif %}>Ativos <span>{{totals.get('ativos',0)}}</span></a>
+    <a href="/auditoria/arquivados?tipo={{entity}}&estado=arquivados" class="archive-tab {{'selected' if status=='arquivados' else ''}}" {% if status=='arquivados' %}aria-current="page"{% endif %}>Arquivados <span>{{totals.get('arquivados',0)}}</span></a>
+  </div>
+  <div class="manager-description">{% if status=='arquivados' %}Estes registros foram removidos de suas listas de origem. Para reativar um item, informe a justificativa e confirme sua senha.{% else %}Registros atualmente disponíveis nos módulos operacionais. É possível arquivar um item com confirmação administrativa.{% endif %}</div>
+  <input class="search" data-search="archive-table" placeholder="Buscar na categoria selecionada..." aria-label="Filtrar registros">
+  <div class="table-scroll"><table id="archive-table"><thead><tr><th>ID</th>{% for field in summary_fields %}<th>{{field.replace('_',' ').title()}}</th>{% endfor %}<th>Situação</th><th>Operações</th></tr></thead><tbody>
+    {% for r in records %}<tr><td><strong>#{{r.id}}</strong></td>{% for field in summary_fields %}<td>{{ (r[field]|string)[:100] }}</td>{% endfor %}
+      <td><span class="pill {{'pending' if r.deleted_at else 'success'}}">{{'Arquivado' if r.deleted_at else 'Ativo'}}</span></td>
+      <td><div class="archive-actions">{{control(entity,r.id,csrf,r.deleted_at)}}
+      {% if not r.deleted_at and entity=='enrollments' %}<details class="details"><summary>Editar matrícula</summary><form method="post" action="/administracao/campos/enrollments/{{r.id}}" class="stack compact"><input type="hidden" name="_csrf" value="{{csrf}}"><label>Situação<select name="status">{% for x in ['ativa','transferida','desligada'] %}<option value="{{x}}" {% if r.status==x %}selected{% endif %}>{{x}}</option>{% endfor %}</select></label><label>Justificativa<textarea name="justification" minlength="10" required></textarea></label><label>Senha de administrador<input name="admin_password" type="password" required></label><button class="button small primary">Salvar</button></form></details>{% endif %}
+      {% if not r.deleted_at and entity=='adjustments' %}<details class="details"><summary>Editar ajuste</summary><form method="post" action="/administracao/campos/adjustments/{{r.id}}" class="stack compact"><input type="hidden" name="_csrf" value="{{csrf}}"><label>Pontuação (-3 a 3)<input type="number" step="0.1" min="-3" max="3" name="delta" value="{{r.delta}}" required></label><label>Motivo do ajuste<textarea name="adjustment_reason" required>{{r.justification}}</textarea></label><label>Justificativa da retificação<textarea name="justification" minlength="10" required></textarea></label><label>Senha de administrador<input name="admin_password" type="password" required></label><button class="button small primary">Salvar</button></form></details>{% endif %}
+      {% if not r.deleted_at and entity=='students' %}<a class="text-link" href="/alunos/{{r.id}}">Ver ficha</a>{% elif not r.deleted_at and entity=='assessments' %}<a class="text-link" href="/simulados/{{r.id}}/editar">Editar</a>{% elif not r.deleted_at and entity=='occurrences' %}<a class="text-link" href="/ocorrencias/{{r.id}}">Ver ocorrência</a>{% endif %}</div></td>
+      </tr>{% else %}<tr><td colspan="8" class="empty">{% if status=='arquivados' %}Nenhum registro arquivado nesta categoria.{% else %}Nenhum registro ativo nesta categoria.{% endif %}</td></tr>{% endfor %}
+  </tbody></table></div>
+  {% if records|length==150 %}<p class="footnote">Mostrando os últimos 150 registros desta situação e categoria.</p>{% endif %}
+</section>
+{% endblock %}

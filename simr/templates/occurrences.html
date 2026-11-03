@@ -1,0 +1,10 @@
+{% extends 'base.html' %}{% from 'admin_action.html' import control %}{% block title %}Ocorrências{% endblock %}{% block section %}Ocorrências{% endblock %}{% block content %}
+<div class="page-heading"><div><div class="eyebrow">ACESSO INSTITUCIONAL RESTRITO</div><h1>Ocorrências disciplinares</h1><p>Registros individualizados, classificados e auditados. Não alteram notas automaticamente.</p></div>{% if is_admin %}<a class="button primary" href="/ocorrencias/nova">+ Nova ocorrência</a>{% endif %}</div>
+<div class="alert-sensitive">Informações sobre crianças e adolescentes: acesso restrito. O boletim é documento administrativo, não comprovação automática de culpa ou autorização de penalidade.</div>
+<section class="panel"><div class="panel-head"><h2>Histórico de ocorrências</h2><span class="subtle">{{occurrences|length}} registros recentes</span></div>
+<input class="search" data-search="occurrence-table" placeholder="Buscar aluno, matrícula, tipo de infração...">
+<div class="table-scroll"><table id="occurrence-table"><thead><tr><th>Nº</th><th>Data</th><th>Aluno</th><th>Infração</th><th>Medidas</th><th>Situação</th><th>Ações</th></tr></thead><tbody>
+{% for o in occurrences %}<tr><td>{{'%06d'|format(o.id)}}</td><td>{{o.incident_date}}</td><td><strong>{{o.student_name}}</strong><small>{{o.registration}}</small></td><td><span class="pill {{'danger' if o.infraction_type in ['grave','eliminatoria'] else 'pending'}}">{{infraction_text(o.infraction_type)}}</span></td><td>{{o.action_count}}</td><td><span class="pill {{'success' if o.status=='validado' else 'pending'}}">{{o.status}}</span></td><td><a class="button small secondary" href="/ocorrencias/{{o.id}}">Abrir ficha →</a>{% if is_admin %}{{control('occurrences',o.id,csrf,o.deleted_at)}}{% endif %}</td></tr>
+{% else %}<tr><td colspan="7" class="empty">Nenhuma ocorrência cadastrada.</td></tr>{% endfor %}
+</tbody></table></div></section>
+{% endblock %}

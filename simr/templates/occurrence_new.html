@@ -1,0 +1,10 @@
+{% extends 'base.html' %}{% block title %}Nova ocorrência{% endblock %}{% block section %}Nova ocorrência{% endblock %}{% block content %}
+<div class="page-heading"><div><div class="eyebrow">REGISTRO ADMINISTRATIVO</div><h1>Nova ocorrência</h1><p>Primeiro registre os fatos. Depois inclua advertências, suspensões e fotografias, se aplicável.</p></div><a class="button secondary" href="/ocorrencias">← Voltar</a></div>
+<section class="panel"><div class="alert-sensitive">Registre fatos verificáveis e objetivos. A classificação é informativa e não aplica suspensão, exclusão ou impedimento automaticamente.</div>
+<form method="post" action="/ocorrencias" class="form-grid"><input type="hidden" name="_csrf" value="{{csrf}}">
+<label>Aluno(a)<select name="student_id" required>{% for s in students %}<option value="{{s.id}}" {% if s.id|string==student_value %}selected{% endif %}>{{s.name}} · {{s.registration}}</option>{% endfor %}</select></label>
+<label>Data da ocorrência<input type="date" name="incident_date" value="{{today}}" required></label>
+<label>Tipo de infração<select name="infraction_type" required><option value="leve">Leve</option><option value="media">Média</option><option value="grave">Grave</option><option value="eliminatoria">Eliminatória</option></select></label>
+<label class="span-all">Descrição dos fatos<textarea name="description" rows="6" required maxlength="10000" placeholder="Descreva objetivamente o acontecimento, o contexto e as informações conhecidas..."></textarea></label>
+<div class="form-action"><button class="button primary" {% if not students %}disabled{% endif %}>Salvar ocorrência em rascunho</button></div></form></section>
+{% endblock %}

@@ -1,0 +1,3 @@
+O banco de dados SER sera criado nesta pasta na primeira execucao.
+Para conservar seus dados, copie a pasta instance COMPLETA da versao anterior com o SER desligado.
+NUNCA compartilhe esta pasta com dados reais de estudantes.
