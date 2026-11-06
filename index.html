@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SER - Sistema de Ensino e Gestão</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Ícones via FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Container Principal -->
+    <div class="app-container">
+        
+        <!-- Sidebar / Menu Lateral -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fa-solid fa-shield-halved"></i> SER <span>Gestão</span></h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active"><a href="#" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+                <li><a href="#" onclick="switchTab('students')"><i class="fa-solid fa-users"></i> Alunos</a></li>
+                <li><a href="#" onclick="switchTab('assessments')"><i class="fa-solid fa-file-lines"></i> Avaliações</a></li>
+                <li><a href="#" onclick="switchTab('ranking')"><i class="fa-solid fa-trophy"></i> Ranking</a></li>
+                <li><a href="#" onclick="switchTab('inspections')"><i class="fa-solid fa-clipboard-check"></i> Inspeções</a></li>
+                <li><a href="#" onclick="switchTab('reports')"><i class="fa-solid fa-chart-column"></i> Relatórios</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <p><i class="fa-solid fa-circle-user"></i> Administrador</p>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="toggle-menu">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <div class="user-info">
+                    <span>Ambiente Estático (Cloudflare)</span>
+                </div>
+            </header>
+
+            <!-- Dashboard View -->
+            <div id="dashboard" class="tab-content active">
+                <div class="page-title">
+                    <h1>Visão Geral do Sistema</h1>
+                    <p>Bem-vindo ao painel de controle do SER.</p>
+                </div>
+
+                <!-- Cards de Estatísticas -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="icon bg-blue"><i class="fa-solid fa-users"></i></div>
+                        <div class="info">
+                            <h3>Total de Alunos</h3>
+                            <p>1,240</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon bg-green"><i class="fa-solid fa-clipboard-check"></i></div>
+                        <div class="info">
+                            <h3>Inspeções Ativas</h3>
+                            <p>48</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon bg-orange"><i class="fa-solid fa-file-lines"></i></div>
+                        <div class="info">
+                            <h3>Avaliações</h3>
+                            <p>12</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon bg-purple"><i class="fa-solid fa-trophy"></i></div>
+                        <div class="info">
+                            <h3>Média Geral</h3>
+                            <p>8.5</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção de Tabelas / Resumo -->
+                <div class="card-section">
+                    <h2>Últimas Ocorrências Registradas</h2>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Aluno</th>
+                                    <th>Tipo</th>
+                                    <th>Data</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#1092</td>
+                                    <td>João Silva</td>
+                                    <td>Comportamental</td>
+                                    <td>03/11/2026</td>
+                                    <td><span class="badge warning">Pendente</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#1091</td>
+                                    <td>Maria Oliveira</td>
+                                    <td>Acadêmica</td>
+                                    <td>02/11/2026</td>
+                                    <td><span class="badge success">Resolvido</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Outras abas (Placeholder dinâmico) -->
+            <div id="students" class="tab-content">
+                <div class="page-title"><h1>Gerenciamento de Alunos</h1></div>
+                <p>Módulo de listagem e controle de discentes.</p>
+            </div>
+
+            <div id="assessments" class="tab-content">
+                <div class="page-title"><h1>Avaliações</h1></div>
+                <p>Gerenciamento de notas, provas e critérios.</p>
+            </div>
+
+            <div id="ranking" class="tab-content">
+                <div class="page-title"><h1>Ranking Geral</h1></div>
+                <p>Classificação de desempenho dos alunos.</p>
+            </div>
+
+            <div id="inspections" class="tab-content">
+                <div class="page-title"><h1>Inspeções</h1></div>
+                <p>Controle de vistorias e inspeções diárias.</p>
+            </div>
+
+            <div id="reports" class="tab-content">
+                <div class="page-title"><h1>Relatórios</h1></div>
+                <p>Geração de relatórios gerenciais e estatísticas.</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            // Esconde todas as abas
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.sidebar-menu li').forEach(el => el.classList.remove('active'));
+            
+            // Mostra a aba selecionada
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.parentElement.classList.add('active');
+        }
+    </script>
+</body>
+</html>
